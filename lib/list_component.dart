@@ -58,18 +58,28 @@ class EmployeeRef
       <th>Age</th>
       <th>City</th>
      </tr>
-     <tr employee-ref *ngFor="let e of employees" [employee]=e>
+     <tr employee-ref *ngFor="let e of employees" [employee]=e
+        (click) = "rowSelected(e)"
+        [class.selected]="selectedEmployee==e"
+     >
      </tr>
      </table>
-'''
-    // <employee-ref 
-    //    *ngFor="let employee of employees" [employee]=employee>
-    //</employee-ref>
-    // </table>
+''',
+    styles: const [
+    ''' .selected {background-color: red} '''
+    ]
 )
 class ListComponent
 {
   List<Employee> employees = [
     new Employee('John', 'Doe', 33, new City('Warsaw', '00-001')
-                 )];
+                 ),
+    new Employee('Uncle', 'Ben', 66, new City('Krakow', '22-541'))];
+  Employee selectedEmployee;
+
+  void rowSelected(Employee e)
+  {
+    print(e.name);
+    selectedEmployee = e;
+  }
 }
